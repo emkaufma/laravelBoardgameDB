@@ -70,6 +70,10 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/about') }}">About</a></li>
+                        <a href="{{ url('/games') }}">Games</a></li>
+                        <a href="{{ url('/groups') }}">Groups</a></li>
+                        <a href="{{ url('/events') }}">Events</a></li>
                     @else
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
