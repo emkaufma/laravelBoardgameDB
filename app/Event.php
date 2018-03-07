@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    protected $fillable = ['name', 'description', 'location_id', 'user_id', 'ownerTypeId', 'date'];
+    protected $fillable = ['name', 'description', 'locationId', 'ownerId', 'ownerTypeId', 'date'];
 
     public function location()
     {
-        return $this->hasOne('App\Location', 'id');
+        return $this->belongsTo('App\Location', 'locationId');
     }
 
     public function user()

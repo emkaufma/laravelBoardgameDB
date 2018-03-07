@@ -5,20 +5,21 @@
     <div class="col-sm-6 col-sm-offset-3">
     		<h1>Add an Event</h1> 
     		
-	        <form action="/addEvent" method="post">
+			<form action="/addEventExisting" method="post" id="eventForm">
+			{{csrf_field()}}
 	        	<div class="form-group">
 		            <label>Name</label>
-		            <input type="text" class="form-control" name="eventName">
+		            <input type="text" class="form-control" name="name" required>
 		        </div>
 		        
 		        <div class="form-group">
 		            <label>Description</label>
-		            <input type="text" class="form-control" name="eventDescription">
+		            <input type="text" class="form-control" name="description" required>
 		        </div>
 		        
 		        <div class="form-group">
 		            <label>Date</label>
-		            <input type="text" class="form-control" name="eventDate">
+		            <input type="text" class="form-control" name="date" required>
 		        </div>
 	        	
 		    	<div class="form-group">
@@ -39,27 +40,27 @@
 		        <div id="locationNew" style="display: none;">
 		        <div class="form-group" id="locationName">
 		        	<label>Location Name</label>
-		        	<input type="text" class="form-control" name="locationName">
+		        	<input type="text" class="form-control" name="locationName" id="lnameInput">
 		        </div>
 		        
 		        <div class="form-group" id="locationAddress">
 		        	<label>Location Address</label>
-		        	<input type="text" class="form-control" name="locationAddress">
+		        	<input type="text" class="form-control" id="laddInput" name="locationAddress">
 		        </div>
 		        
 		        <div class="form-group" id="locationCity">
 		        	<label>Location City</label>
-		        	<input type="text" class="form-control" name="locationCity">
+		        	<input type="text" class="form-control" id="llocInput" name="locationCity">
 		        </div>
 		        
 		        <div class="form-group" id="locationState">
 		        	<label>Location State</label>
-		        	<input type="text" class="form-control" name="locationState">
+		        	<input type="text" class="form-control" id="lstateInput" name="locationState">
 		        </div>
 		        
 		        <div class="form-group" id="locationZip">
 		        	<label>Location Zip</label>
-		        	<input type="text" class="form-control" name="locationZip">
+		        	<input type="text" class="form-control" id="lzipInput" name="locationZip">
 		        </div>
 		        </div>
 		        
@@ -82,11 +83,26 @@
 	function existingLocationClick(){
 		document.getElementById("locationNew").style.display = "none";
 		document.getElementById("locationExisting").style.display = "block";
+		document.getElementById("eventForm").action = "/addEventExisting"
+
+		document.getElementById('lzipInput').required = false;
+		document.getElementById('lstateInput').required = false;
+		document.getElementById('llocInput').required = false;
+		document.getElementById('laddInput').required = false;
+		document.getElementById('lnameInput').required = false;
+
 	}
 
 	function newLocationClick(){
 		document.getElementById("locationNew").style.display = "block";
 		document.getElementById("locationExisting").style.display = "none";
+		document.getElementById("eventForm").action = "/addEventNew"
+
+		document.getElementById('lzipInput').required = true;
+		document.getElementById('lstateInput').required = true;
+		document.getElementById('llocInput').required = true;
+		document.getElementById('laddInput').required = true;
+		document.getElementById('lnameInput').required = true;
 	}
 </script>
 

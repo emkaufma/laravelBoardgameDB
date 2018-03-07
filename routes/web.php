@@ -16,6 +16,10 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/home', function () {
+    return view('home');
+});
+
 Route::get('/about', function(){
     return view('about');
 });
@@ -130,9 +134,52 @@ Route::post('/addGroup', function(Request $request){
     return redirect()->route('home')->withFlashMessage('Group Created Successfully.');;
 })->middleware('auth');
 
-Route::get('/addEvent', function(){
-    return view('eventAdd', ['groups' => App\Group::all(), 'locations' => App\Location::all()]);
-});
+Route::post('/addEventExisting', function(Request $request){
+    $event = new App\Event();
+
+    $event->name = $request->name;
+    $event->date = $request->date;
+    $event->description = $request->description;
+    $event->ownerTypeId = 2;
+    $event->ownerId = $request->eventOwner;
+    $event->locationId = 1;
+    $event->save();
+
+    $location = App\Location::findOrFail($request->locationExisting);
+    $event->location()->associate($location);
+    $event->save();
+
+    //$event->location()->save(App\Location::find($request->locationExisting));
+
+    return redirect()->route('home')->withFlashMessage('Event Created Successfully.');;
+})->middleware('auth');
+
+Route::post('/addEventNew', function(Request $request){
+    $location = new App\Location();
+    $location->name = $request->locationName;
+    $location->address = $request->locationAddress;
+    $location->city = $request->locationCity;
+    $location->state = $request->locationState;
+    $location->zip = $request->locationZip;
+    $location->save();
+
+    $event = new App\Event();
+
+    $event->name = $request->name;
+    $event->date = $request->date;
+    $event->description = $request->description;
+    $event->ownerTypeId = 2;
+    $event->ownerId = $request->eventOwner;
+    $event->locationId = 1;
+    $event->save();
+
+    $event->location()->associate($location);
+    $event->save();
+
+    //$event->location()->save(App\Location::find($request->locationExisting));
+
+    return redirect()->route('home')->withFlashMessage('Event Created Successfully.');;
+})->middleware('auth');
 
 Auth::routes();
 
