@@ -25,7 +25,8 @@ Route::get('/event/{id}', function($id){
 });
 
 Route::get('/events', function(){
-    return view('events', ['events' => App\Event::all()]);
+    $events = App\Event::with('location')->get();
+    return view('events', ['events' => $events]);
 });
 
 Route::get('/eventAdd', function(){
@@ -42,7 +43,7 @@ Route::get('/gameAdd', function(){
 
 Route::get('/games', function(){
 
-    $games = App\Game::orderBy('name')->with('review')->get();
+    $games = App\Game::orderBy('name')->with(['review', 'category'])->get();
 
     foreach($games as $game){
         $count = 0.0;

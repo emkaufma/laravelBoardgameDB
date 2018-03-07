@@ -5,7 +5,7 @@
     <div class="col-sm-6 col-sm-offset-3">
     		<h1>Add an Event</h1> 
     		
-	        <form action="/eventAdd" method="post">
+	        <form action="/addEvent" method="post">
 	        	<div class="form-group">
 		            <label>Name</label>
 		            <input type="text" class="form-control" name="eventName">
